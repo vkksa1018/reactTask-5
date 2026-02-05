@@ -11,7 +11,7 @@ function Cart() {
     total: 0,
     final_total: 0,
   });
-
+  //取得購物車清單
   const getCart = async () => {
     try {
       const res = await axios.get(`${API_BASE}/api/${API_PATH}/cart`);
@@ -24,6 +24,7 @@ function Cart() {
   useEffect(() => {
     getCart();
   }, []);
+  //更新購物車清單
   const updateCart = async (cartId, productId, qty = 1) => {
     try {
       const data = {
@@ -38,10 +39,19 @@ function Cart() {
       console.log(error.response);
     }
   };
-
+  //刪除購物車單筆
   const delCart = async (cartId) => {
     try {
       await axios.delete(`${API_BASE}/api/${API_PATH}/cart/${cartId}`);
+      getCart();
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+  //刪除整筆購物車
+  const deleteAllCart = async () => {
+    try {
+      await axios.delete(`${API_BASE}/api/${API_PATH}/carts`);
       getCart();
     } catch (error) {
       console.log(error.response);
@@ -52,7 +62,11 @@ function Cart() {
     <div className="container">
       <h2>購物車列表</h2>
       <div className="text-end mt-4">
-        <button type="button" className="btn btn-outline-danger">
+        <button
+          type="button"
+          className="btn btn-outline-danger"
+          onClick={() => deleteAllCart()}
+        >
           清空購物車
         </button>
       </div>

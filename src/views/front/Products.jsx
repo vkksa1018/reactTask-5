@@ -36,6 +36,11 @@ function Products() {
                 src={product.imageUrl}
                 className="card-img-top"
                 alt={product.title}
+                style={{
+                  height: "200px",
+                  objectFit: "cover",
+                  width: "100%",
+                }}
               />
 
               <div className="card-body d-flex flex-column">
